@@ -6,13 +6,14 @@ for (let i = 0; i < cartas.length; i++) {
     const element = cartas[i];
     element.setAttribute("data-carta", letras[i]);
     element.addEventListener("click", function() {
-        var data = element.getAttribute("data-carta")
-        manejarClickEnCarta(i, data)
+        manejarClickEnCarta(element)
     })
 };
 
-function manejarClickEnCarta(i, letra) {
-    console.log('Click en la carta', i, 'con letra', letra)
+function manejarClickEnCarta(element) {
+    var letra = element.getAttribute("data-carta")
+    element.innerText = letra
+    // TODO si estaba dada vuelta la tengo que "esconder"
+    // TODO si otra estaba dada vuelta tengo que hacer la cosa loca
 }
 
-//document.querySelectorAll(".carta").forEach((carta) => carta.addEventListener('click', () => alert('me hicieron click')))
