@@ -1,27 +1,36 @@
 const cartas = document.querySelectorAll(".carta");
+const letras = ["a", "b", "c", "d", "f", "g", "a", "b", "c", "d", "f", "g"];
 
-const letras = ["a", "b" ,"c", "d", "f", "g", "a", "b" ,"c", "d", "f", "g"];
 
 for (let i = 0; i < cartas.length; i++) {
     const element = cartas[i];
     element.setAttribute("data-carta", letras[i]);
     element.addEventListener("click", function () {
-        if (element.classList.contains("activa")) {
-            console.log("es segunda");
-            console.clear();
+        element.innerHTML = letras[i];
+        element.classList.add("activa");
+        if (document.querySelectorAll(".activa") == letras[i]) { //chequea esto manu. recorda lo que dijo BOB.
+            console.log("son IGUALES")
         } else {
-            console.log("es primera")
+            console.log("no son iguales")
         }
-        element.classList.add("activa")
         var letra = element.getAttribute("data-carta")
         manejarClickEnCarta(i, letra, element)
-
     })
 };
 
+function dameLetraActiva() {
+    for (let i = 0; i < cartas.length; i++) {
+        const carta = cartas[i]
+        console.log(carta)
+        if (carta.classList.contains("activa")) {
+            
+            return carta.getAttribute("data-carta");
+        }
+    }
+}
 
-function manejarClickEnCarta(i, letra, element) {
-    console.log('click en carta', i, 'con letra', letra, element);
+function manejarClickEnCarta(i, letra) {
+    console.log('click en carta', i, 'con letra', letra);
 };
 
 
@@ -44,26 +53,3 @@ function manejarClickEnCarta(i, letra, element) {
 //document.querySelectorAll(".carta").forEach((carta) => carta.addEventListener('click', () => alert('me hicieron click')))
 
 
-/*
-for (let i = 0; i < cartas.length; i++) {
-    const element = cartas[i];
-    element.setAttribute("data-carta", letras[i]);
-    element.addEventListener("click", function () {
-        segundaCarta(element)
-        element.classList.add("activa")
-        var letra = element.getAttribute("data-carta")
-        manejarClickEnCarta(i, letra, element)
-        
-    })
-};
-*/
-/*agregar dentro de la funcion inicial:
-function segundaCarta (element) {
-    if (element.classList.contains("activa")) {
-        console.log("es segunda");
-        console.clear();
-    } else {
-        console.log("es primera")
-    }
-}
-*/
