@@ -7,14 +7,26 @@ for (let i = 0; i < cartas.length; i++) {
     element.setAttribute("data-carta", letras[i]);
     element.addEventListener("click", function () {
         element.innerHTML = letras[i];
+        const activas = document.querySelectorAll(".activa")
         element.classList.add("activa");
-        if (document.querySelectorAll(".activa") == letras[i]) { //chequea esto manu. recorda lo que dijo BOB.
+        if (activas.length == 0 ) {
+            return
+        }
+        const activaAhora = activas[0]
+        const letraActivaAhora = activaAhora.getAttribute("data-carta")
+        console.log( "comparacion de cartas: ", letraActivaAhora, letras[i] )
+        if (letraActivaAhora == letras[i]) { 
             console.log("son IGUALES")
+            activaAhora.textContent = "";
+            element.textContent = "";
+            element.classList.remove("activa");
+            //eliminar cartas ambas
         } else {
             console.log("no son iguales")
+            //tapar cartas
         }
         var letra = element.getAttribute("data-carta")
-        manejarClickEnCarta(i, letra, element)
+        //manejarClickEnCarta(i, letra, element)
     })
 };
 
@@ -29,13 +41,10 @@ function dameLetraActiva() {
     }
 }
 
+
 function manejarClickEnCarta(i, letra) {
     console.log('click en carta', i, 'con letra', letra);
-};
-
-
-
-
+}
 
     //hacer click en primera carta?
     //si o no?
