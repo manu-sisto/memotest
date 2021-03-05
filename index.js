@@ -6,12 +6,19 @@ for (let i = 0; i < cartas.length; i++) {
     const element = cartas[i];
     element.setAttribute("data-carta", letras[i]);
     element.addEventListener("click", function () {
-        element.innerHTML = letras[i];
+        
+        const borrada = element.classList.contains("borrada")
+        if (borrada === true) {
+            return
+        }
+
+        element.textContent = letras[i]
         const activas = document.querySelectorAll(".activa")
         element.classList.add("activa");
         if (activas.length == 0 ) {
             return
         }
+        
         const activaAhora = activas[0]
         const letraActivaAhora = activaAhora.getAttribute("data-carta")
         console.log( "comparacion de cartas: ", letraActivaAhora, letras[i] )
@@ -19,10 +26,17 @@ for (let i = 0; i < cartas.length; i++) {
             console.log("son IGUALES")
             activaAhora.textContent = "";
             element.textContent = "";
-            element.classList.remove("activa");
+            activaAhora.classList.remove("activa")
+            element.classList.remove("activa")
+            activaAhora.classList.add("borrada")
+            element.classList.add("borrada");
             //eliminar cartas ambas
         } else {
             console.log("no son iguales")
+            activaAhora.textContent = "CARTA TAPADA"
+            element.textContent = "CARTA TAPADA"
+            activaAhora.classList.remove("activa")
+            element.classList.remove("activa");
             //tapar cartas
         }
         var letra = element.getAttribute("data-carta")
