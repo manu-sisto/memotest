@@ -1,4 +1,5 @@
 const cartas = document.querySelectorAll(".carta");
+
 const letras = ["A", "B", "C", "D", "F", "G", "A", "B", "C", "D", "F", "G"];
 
 function mezclarArray(array) {
@@ -74,8 +75,3 @@ for (let i = 0; i < cartas.length; i++) {
         }, 1000);
     })
 };
-
-
-
-
-
