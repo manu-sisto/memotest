@@ -1,2 +1,19 @@
 
-  
+  .carta {
+      margin: 30px;
+  }
+
+  .borrada {
+      visibility: hidden;
+  }
+
+  .activa {
+      align-items: center;
+      text-align: center;
+  }
+
+  #final {
+      align-items: center;
+      align-content: center;
+      text-align: center;
+  }

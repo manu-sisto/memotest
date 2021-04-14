@@ -1,78 +1,81 @@
 const cartas = document.querySelectorAll(".carta");
-const letras = ["a", "b", "c", "d", "f", "g", "a", "b", "c", "d", "f", "g"];
+const letras = ["A", "B", "C", "D", "F", "G", "A", "B", "C", "D", "F", "G"];
 
+function mezclarArray(array) {
+    array.sort(() => Math.random() - 0.5);
+}
+mezclarArray(letras);
+
+
+let turnos = 0;
 
 for (let i = 0; i < cartas.length; i++) {
     const element = cartas[i];
-    element.setAttribute("data-carta", letras[i]);
+    element.setAttribute("letra", letras[i]);
+
+    function chequearSiGano() {
+        if (document.querySelectorAll(".borrada").length === 12) {
+            document.getElementById("contador").remove()
+            document.getElementById("final").innerHTML = "Felicitaciones! ganaste en " + turnos + " turnos."
+        } else {
+            console.log("Segui jugando")
+        }
+    }
+
     element.addEventListener("click", function () {
-        
-        const borrada = element.classList.contains("borrada")
-        if (borrada === true) {
+
+        if (element.classList.contains("borrada") === true) {
             return
         }
+        if (element.classList.contains("borrada") === true) {
+            return
+        }
+
+        turnos++;
 
         element.textContent = letras[i]
         const activas = document.querySelectorAll(".activa")
-        element.classList.add("activa");
-        if (activas.length == 0 ) {
+        element.classList.add("activa")
+        if (activas.length == 0) {
             return
         }
-        
-        const activaAhora = activas[0]
-        const letraActivaAhora = activaAhora.getAttribute("data-carta")
-        console.log( "comparacion de cartas: ", letraActivaAhora, letras[i] )
-        if (letraActivaAhora == letras[i]) { 
+
+        const activa = activas[0]
+        const letraPrimeraCarta = activa.getAttribute("letra")
+        function desactivarCarta(x) { x.classList.remove("activa") }
+        function borrarCarta(x) { x.classList.add("borrada") }
+        function taparCarta(x) { x.textContent = "CARTA TAPADA" }
+
+        console.log("comparacion de cartas: ", letraPrimeraCarta, "contra", letras[i])
+
+        if (letraPrimeraCarta == letras[i]) {
             console.log("son IGUALES")
-            activaAhora.textContent = "";
-            element.textContent = "";
-            activaAhora.classList.remove("activa")
-            element.classList.remove("activa")
-            activaAhora.classList.add("borrada")
-            element.classList.add("borrada");
-            //eliminar cartas ambas
+            setTimeout(function () {
+                activa.textContent = "";
+                element.textContent = "";
+                desactivarCarta(activa)
+                desactivarCarta(element)
+                borrarCarta(activa)
+                borrarCarta(element)
+            }, 1000);
+
         } else {
             console.log("no son iguales")
-            activaAhora.textContent = "CARTA TAPADA"
-            element.textContent = "CARTA TAPADA"
-            activaAhora.classList.remove("activa")
-            element.classList.remove("activa");
-            //tapar cartas
+            setTimeout(function () {
+                taparCarta(activa)
+                taparCarta(element)
+            }, 1000);
+            desactivarCarta(activa)
+            desactivarCarta(element);
         }
-        var letra = element.getAttribute("data-carta")
-        //manejarClickEnCarta(i, letra, element)
+        document.getElementById("turnos").innerHTML = turnos;
+        setTimeout(function () {
+            chequearSiGano()
+        }, 1000);
     })
 };
 
-function dameLetraActiva() {
-    for (let i = 0; i < cartas.length; i++) {
-        const carta = cartas[i]
-        console.log(carta)
-        if (carta.classList.contains("activa")) {
-            
-            return carta.getAttribute("data-carta");
-        }
-    }
-}
 
 
-function manejarClickEnCarta(i, letra) {
-    console.log('click en carta', i, 'con letra', letra);
-}
-
-    //hacer click en primera carta?
-    //si o no?
-    //si, entonces dar vuelta. y volver al principio de funcion (recursion)
-    //no, entonces dar vuelta y mostrar carta y...
-        //si es igual a la primera, eliminar las 2.
-        //no es igual, tapar las 2 cartas.
-            //quedan mas cartas?
-            //si, recursion.
-            //no, ganaste!
-
-
-
-
-//document.querySelectorAll(".carta").forEach((carta) => carta.addEventListener('click', () => alert('me hicieron click')))
 
 
